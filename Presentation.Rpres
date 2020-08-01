@@ -1,0 +1,80 @@
+Presentation on mtcars model
+========================================================
+author: Sunny Sagar
+date: 01 August 2020
+
+My cool project
+========================================================
+
+Okay this project is really not all that cool. In fact is it pretty darn simple. But at least it works in shiny, which is more than I can say about my first attempt at something more ambitious. 
+It does the following things:
+
+- Loads the mtcars data.
+- Plots a historgram of the mpg (miles per gallon).
+- Adds a slider to the histogram so you can see the mean square error from a test "mu".
+- Does a glm of the mt cars mpg data based on vehicle weight and displacement.
+- Plots a histogram and a mean square error slider with test "mu".
+
+The histogram
+========================================================
+
+This shows a histogram of the mtcars mpg data.
+
+```{r "Get Data", echo=FALSE}
+     
+data(mtcars)
+                cardata<-mtcars
+                
+```
+
+```{r "histo1", echo=3:4}
+                
+                
+                              
+hist(cardata$mpg, xlab='mpg', col='lightblue',main='Histogram of Data', breaks=10, xlim=c(5,40), ylim=c(0,8))
+                        mu <- mean(cardata$mpg)
+                        lines(c(mu, mu), c(0, 200),col="red",lwd=5)
+                        mse <- mean((cardata$mpg - mu)^2)
+                        text(25, 5.5, paste("mean = ", mu))
+                        text(25, 6, paste("MSE = ", round(mse, 2)))
+```
+
+The histogram with offset mean
+========================================================
+
+The offset mean can bee seen to increase the mean square error (MSE).
+
+```{r "histo2", echo=4}
+     
+                              
+                hist(cardata$mpg, xlab='mpg', col='lightblue',main='Histogram of Data', breaks=10, xlim=c(5,40), ylim=c(0,8))
+                        mu <- 25.
+                        lines(c(mu, mu), c(0, 200),col="red",lwd=5)
+                        mse <- mean((cardata$mpg - mu)^2)
+                        text(25, 5.5, paste("mean = ", mu))
+                        text(25, 6, paste("MSE = ", round(mse, 2)))
+```
+
+
+Model the Data
+========================================================
+
+Here is a model of the data. Again the mean square error is shown. 
+
+```{r "model", echo=2}
+          
+        formula <- mpg~disp+wt
+        model<-glm(formula, data=cardata)
+                        
+        modelmpg<-predict(model, mtcars[,-1])
+                        
+                hist(modelmpg, xlab='mpg', col='green',main='Histogram of Model', breaks=10, xlim=c(5,40), ylim=c(0,8))
+                        
+                mu <- mean(modelmpg)
+                lines(c(mu, mu), c(0, 200),col="red",lwd=5)
+                mse <- mean((modelmpg - mu)^2)
+                text(25, 5.5, paste("mean = ", mu))
+                text(25, 6, paste("MSE = ", round(mse, 2)))
+ 
+```
+
