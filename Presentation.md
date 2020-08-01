@@ -1,7 +1,7 @@
 Presentation on mtcars model
 ========================================================
 author: Sunny Sagar
-date: 01 August 2020
+date: 01-August 2020
 
 My cool project
 ========================================================
