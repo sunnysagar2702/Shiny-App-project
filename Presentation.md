@@ -1,7 +1,7 @@
 Presentation on mtcars model
 ========================================================
-author: Winston Saunders
-date: December 2014
+author: Sunny Sagar
+date: 01 August 2020
 
 My cool project
 ========================================================
